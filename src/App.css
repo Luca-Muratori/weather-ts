@@ -1,17 +1,18 @@
 #weatherCard{
     margin-left: '50%';
     margin-right:'50%';
-    background-image: linear-gradient(rgb(0, 200, 255), rgb(0, 132, 255));
+    /* background-image: linear-gradient(rgb(0, 200, 255), rgb(0, 132, 255)); */
     box-shadow: 5px 5px 10px rgba(0, 208, 255, 0.833);
     border-radius:.5rem
       }
 
 
-.warm{
-  background-image: linear-gradient(rgb(255, 179, 0), yellow);
+#weatherCard.warm{
+  background-image: url("https://picsum.photos/g/900/900")
+   /* linear-gradient(rgb(255, 179, 0), yellow); */
 }
 
-.cold{
+#weatherCard.cold{
   background-image: linear-gradient(rgb(0, 200, 255), rgb(0, 132, 255));
 }
 

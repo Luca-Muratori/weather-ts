@@ -31,6 +31,10 @@ const MainPage = () => {
         }
     }
     console.log(city)
+
+    const temp = parseInt((Number(city?.main.temp)-273.15).toFixed(2))
+
+    console.table({ temp})
   return (
     <div  style={{display: 'flex',flexDirection: 'column',alignItems: 'center', width: '100%'}}>
         <div>
@@ -38,11 +42,11 @@ const MainPage = () => {
             <button style={{height: '35px', marginTop:'10px', marginBottom:'20px'}} type='button' onClick={fetchCity}><RiSunFill/></button>
         </div>
         {query?
-            (   <Card  id='weatherCard'>
+            (   <Card  id='weatherCard' className={ temp >= 27 ? "warm" : "cold"  } style={{ }} >
                     <Card.Body>
                         <h1 style={{display:'flex', justifyContent:'center'}}>{city?.name}</h1>
                         <Card.Text>
-                        <h3>Temperature: {(Number(city?.main.temp)-273.15).toFixed(2)}°C</h3>
+                        <h3>Temperature: {temp}°C</h3>
                         <h3>Humidity: {city?.main.humidity}%</h3>
                         <h3>
                             Sky Condition:
