@@ -1,13 +1,12 @@
 import {City} from '../types/interfaces'
 import {useEffect, useState, ChangeEvent} from 'react'
-import {Link} from 'react-router-dom'
-import { parse } from 'path'
 import { Card } from 'react-bootstrap'
 import {RiSunFill} from 'react-icons/ri'
 
 const MainPage = () => {
     const [city,setCity]=useState<City | null>(null)
     const [query, setQuery] =useState('')
+    const skyCondition=city?.weather.map(condition=>{return condition.main})
 
 
     useEffect(()=>{fetchCity()}, [])
@@ -33,23 +32,28 @@ const MainPage = () => {
     }
     console.log(city)
   return (
-    <div style={{display: 'flex',flexDirection: 'column',alignItems: 'center'}}>
+    <div  style={{display: 'flex',flexDirection: 'column',alignItems: 'center', width: '100%'}}>
         <div>
             <input style={{height: '30px'}} type='text' value={query} onChange={handleChange}/>
             <button style={{height: '35px', marginTop:'10px', marginBottom:'20px'}} type='button' onClick={fetchCity}><RiSunFill/></button>
         </div>
+        {query?
+            (   <Card  id='weatherCard'>
+                    <Card.Body>
+                        <h1 style={{display:'flex', justifyContent:'center'}}>{city?.name}</h1>
+                        <Card.Text>
+                        <h3>Temperature: {(Number(city?.main.temp)-273.15).toFixed(2)}°C</h3>
+                        <h3>Humidity: {city?.main.humidity}%</h3>
+                        <h3>
+                            Sky Condition:
+                            {skyCondition}
+                        </h3>
+                        </Card.Text>
+                    </Card.Body>
+                </Card>)
+        :( <div>Insert a city</div>)}
 
-        <Card style={{ marginLeft:'50%', backgroundColor:'red', marginRight:'50%' }}>
-            <Card.Img variant="top" src="holder.js/100px180" />
-            <Card.Body>
-                <h1>{city?.name}</h1>
-                <Card.Text>
-                <h3>Temperature:{(Number(city?.main.temp)-273.15).toFixed(2)}°C</h3>
-                <h3>Humidity:{city?.main.humidity}%</h3>
-                </Card.Text>
-            </Card.Body>
-        </Card>
-
+        
     </div>
   )
 }
